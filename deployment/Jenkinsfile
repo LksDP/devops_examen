@@ -1,0 +1,41 @@
+pipeline {
+    agent { label 'srv_docker' }
+
+    stages {
+        
+        
+        stage('clean') {
+            steps {
+                dir('/docker/deployment') {
+                    script {
+                        sh 'rm -rf *'
+                        // Aquí puedes agregar más pasos según sea necesario
+                    }
+                }
+            }
+        }
+        
+        stage('download_repository') {
+            steps {
+                dir('/docker/deployment') {
+                    script {
+                        sh 'git clone -b code https://github.com/LksDP/code_galicia.git'
+                        // Aquí puedes agregar más pasos según sea necesario
+                    }
+                }
+            }
+        }
+        
+        stage('Deployment_in_docker') {
+            steps {
+                dir('/docker/deployment/code_galicia/deployment') {
+                  sh 'docker build ../ -f Dockerfile --target python_base -t dev:1.0'
+                  sh 'docker compose up -d'
+
+                }
+                
+            }
+        }
+        
+    }
+}

@@ -1,0 +1,33 @@
+swagger: '2.0'
+info:
+  title: Mi API
+  version: '1.0'
+paths:
+  /:
+    get:
+      summary: Endpoint para la raíz de la API
+      responses:
+        200:
+          description: Devuelve el archivo index.html
+  /datos:
+    get:
+      summary: Endpoint para obtener datos
+      responses:
+        200:
+          description: Devuelve los datos en formato JSON
+    post:
+      summary: Endpoint para cargar nuevos datos
+      parameters:
+      - in: body
+        name: body
+        schema:
+          type: object
+          properties:
+            datos:
+              type: object
+              description: Los nuevos datos para cargar
+      responses:
+        200:
+          description: Los datos se cargaron exitosamente
+        500:
+          description: Hubo un error al cargar los datos
