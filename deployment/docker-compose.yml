@@ -2,7 +2,7 @@ version: '3.9'
 
 services:
   flask_app:
-    image: dev:1.0
+    image: "${DOCKER_IMAGE_TAG}"
     ports:
       - "5000:5000"
 
