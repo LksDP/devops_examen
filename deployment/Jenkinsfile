@@ -1,41 +1,72 @@
 pipeline {
-    agent { label 'srv_docker' }
+    agent {
+        label 'srv_docker'
+    }
 
     stages {
-        
-        
-        stage('clean') {
+        stage('Clean') {
             steps {
                 dir('/docker/deployment') {
                     script {
                         sh 'rm -rf *'
-                        // Aquí puedes agregar más pasos según sea necesario
                     }
                 }
             }
         }
         
-        stage('download_repository') {
+        stage('Download Repository') {
             steps {
                 dir('/docker/deployment') {
                     script {
-                        sh 'git clone -b code https://github.com/LksDP/code_galicia.git'
-                        // Aquí puedes agregar más pasos según sea necesario
+                        sh 'git clone -b dev https://github.com/LksDP/devops_examen.git'
                     }
                 }
             }
         }
         
-        stage('Deployment_in_docker') {
+        stage('Stop Deployment') {
             steps {
-                dir('/docker/deployment/code_galicia/deployment') {
-                  sh 'docker build ../ -f Dockerfile --target python_base -t dev:1.0'
-                  sh 'docker compose up -d'
-
+                dir('/docker/deployment/devops_examen/deployment') {
+                    script {
+                        try {
+                            sh 'docker-compose down'
+                        } catch (Exception e) {
+                            // Manejar el error aquí si es necesario
+                            echo "Hubo un error al detener el despliegue: ${e.message}"
+                        } finally {
+                            // Asegurarse de que el pipeline continúe independientemente de si hubo un error o no
+                            echo "Continuando con el siguiente paso..."
+                            try {
+                                sh 'docker rmi -f $(docker images -q)'
+                            } catch (Exception e) {
+                                // Manejar el error aquí si es necesario
+                                echo "Hubo un error al eliminar las imágenes: ${e.message}"
+                            }
+                        }
+                    }
                 }
-                
             }
         }
         
+        stage('Build and image') {
+            steps {
+                dir('/docker/deployment/devops_examen/deployment') {
+                    script {
+                        sh "docker build ../ -f Dockerfile --target python_base -t dev:1.0"
+                        //sh 'docker-compose up -d'
+                    }
+                }
+            }
+        }
+        
+        stage('Deployment') {
+            steps {
+                dir('/docker/deployment/devops_examen/deployment') {
+                    script {
+                        sh 'docker-compose up -d'
+                    }
+                }
+            }
+        }
     }
 }
