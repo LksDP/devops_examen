@@ -41,5 +41,3 @@ A continuación, se detalla cómo instalar y configurar el proyecto:
  - 
 
 Si tienes preguntas, problemas o sugerencias, puedes contactar a [lpiorelle@gmail.com](mailto:lpiorelle@gmail.com)
-
-48
