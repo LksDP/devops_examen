@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio</title>
+</head>
+<body>
+    <h1>"DevOps_examen"</h1>
+    <h2>Endpoints Disponibles:</h2>
+    <ul>
+        <li><strong>/</strong> - Ruta principal que devuelve el archivo HTML de inicio.</li>
+        <li><strong>/datos</strong> - Ruta para obtener datos existentes (GET) o cargar nuevos datos (POST).</li>
+    </ul>
+
+    <h2>Descripción del Código:</h2>
+    <p>Este código Python utiliza Flask, un framework de desarrollo web, para crear una API básica que realiza las siguientes acciones:</p>
+    <ol>
+        <li>Al acceder a la ruta principal ("/"), se devuelve un archivo HTML llamado "index.html".</li>
+        <li>Al acceder a la ruta "/data" mediante el método HTTP GET, se lee un archivo JSON llamado "datos.json" y se devuelve su contenido en formato JSON.</li>
+        <li>Al acceder a la ruta "/data" mediante el método HTTP POST, se espera que se envíen nuevos datos en formato JSON en el cuerpo de la solicitud. Estos nuevos datos se guardan en el archivo "datos.json". Si la operación es exitosa, se devuelve un mensaje indicando que los datos se han cargado correctamente. En caso de error, se devuelve un mensaje de error junto con el código de estado HTTP 500.</li>
+    </ol>
+
+    <p>Además, se utiliza Flasgger para generar documentación Swagger para la API, utilizando un archivo de plantilla llamado "swagger.yaml". Y finalmente, el servidor se ejecuta en modo de depuración si el archivo es ejecutado directamente.</p>
+</body>
+</html>
