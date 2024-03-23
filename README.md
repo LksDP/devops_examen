@@ -16,6 +16,7 @@ Devops_examen.
 
 ## Instalación
 
+
 A continuación, se detalla cómo instalar y configurar el proyecto:
 
 1. Paso 1: Se descarga la imagen docker "python:3.9-slim".
