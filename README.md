@@ -14,30 +14,29 @@ Devops_examen.
 
     Además, se utiliza Flasgger para generar documentación Swagger para la API, utilizando un archivo de plantilla llamado "swagger.yaml". Y finalmente, el servidor se ejecuta en modo de depuración si el archivo es ejecutado directamente.
 
-## Instalación
+## Instalación y despliegue local
 
 
 A continuación, se detalla cómo instalar y configurar el proyecto:
 
-1. Paso 1: Se descarga la imagen docker "python:3.9-slim".
-2. Paso 2: se instala Flask Flasgger.
-- pip install flasgger
-- pip install Flask
+1. Crea el ambiente de trabajo en Docker.
+    1.  Se descarga la imagen docker "python:3.9-slim".
+    2. Actualizar e instalar app.
+    - apt-get update 
+    - apt-get install -y git
+    - pip install flasgger
+    - pip install Flask
 
-## Despliegue
+2. Descargar el repositorio de codigo
+    - https://github.com/LksDP/devops_examen.git
 
-1. En este caso se utilizo la deteccion del cambio de codigo para hacer el despliegue.
+3. Levantar app y exponer puerto 
+    flask run --host 0.0.0.0 --port 5000
 
-## Pasos del despliegue.
+## Despliegue en servidor
 
-1. Crear un "Dockerfile" el cual descarga la imagen del hub de docker y luego agrega el repositorio  a la imagen e instala las dependencias y ejecuta un cmd que expone el servidor en el puerto 5000 a todos los hosts.
-2. Crear in docker-compose para desployar la imagen creada y exponerla. En este caso se utlizo el 5000 que expone el servidor.
-3. Crear el Jenkinsfile para automatizar el proceso CI-CD
- -  1. Entra al directorio deployment y si tiene algun archivo o dir lo elimina.
- -  2. Hace un pull del repositorio de la rama master en este caso.
- -  3. Hacer una imagen con el repositorio actualizado ejecutando "docker build ../ -f Dockerfile --target python_base -t dev:1.0"
-       el cual lleva nombre, tag y etiqueta (Se podria en casos posteriores hacer un push de repositorios de imagen)
- -  4. Luego se hace un "docker-composer up -p" para que inicie el contenedor con la imagen actualizada. 
- - 
+1. En este caso se utilizo el despliegue automatico mediante jenkins. Detecta cambio en el codigo y ejecuta "CD".
+ En el jenkisfile se muestran los pasos para el despliegue del mismo.
+ 
 
 Si tienes preguntas, problemas o sugerencias, puedes contactar a [lpiorelle@gmail.com](mailto:lpiorelle@gmail.com)
