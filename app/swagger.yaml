@@ -9,7 +9,7 @@ paths:
       responses:
         200:
           description: Devuelve el archivo index.html
-  /datos:
+  /data:
     get:
       summary: Endpoint para obtener datos
       responses:
