@@ -1,7 +1,7 @@
 import requests
 
 # Realiza una solicitud GET para obtener los datos desde la API
-respuesta = requests.get('http://localhost:5000/datos')
+respuesta = requests.get('http://localhost:5000/data')
 
 # Verifica la respuesta de la API
 if respuesta.status_code == 200:

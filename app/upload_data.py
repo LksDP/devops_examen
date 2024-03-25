@@ -7,7 +7,7 @@ nuevos_datos = {
 }
 
 # Realiza una solicitud POST para enviar los datos a la API
-respuesta = requests.post('http://localhost:5000/datos', json=nuevos_datos)
+respuesta = requests.post('http://localhost:5000/data', json=nuevos_datos)
 
 # Verifica la respuesta de la API
 if respuesta.status_code == 200:
